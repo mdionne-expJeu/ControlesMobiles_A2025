@@ -59,11 +59,20 @@ public class DeplacementPersonnage : MonoBehaviour
         jumpRequested = true;
     }
 
+    public void ArreteSaute()
+    {
+         // Saut variable : si on relâche la touche de saut pendant la montée, on coupe l'ascension
+        if (variableJump && rb.linearVelocity.y > 0f)
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * jumpCutMultiplier);
+        }
+    }
+
     void FixedUpdate()
     {
         // Sol ?
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
-       Debug.Log("Au Sol = " + isGrounded);
+      
         // Déplacement horizontal par vélocité
         rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
 
@@ -75,11 +84,8 @@ public class DeplacementPersonnage : MonoBehaviour
         }
         jumpRequested = false;
 
-        // Saut variable : si on relâche la touche de saut pendant la montée, on coupe l'ascension
-        if (variableJump && rb.linearVelocity.y > 0f && Input.GetButtonUp("Jump"))
-        {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * jumpCutMultiplier);
-        }
+       
+        
     }
 
     // Gizmo pour voir le groundCheck dans l'éditeur
