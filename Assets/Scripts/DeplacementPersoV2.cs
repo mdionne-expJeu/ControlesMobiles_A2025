@@ -10,7 +10,7 @@ public class DeplacementPersonnageV2 : MonoBehaviour
     [SerializeField] private float forceSaut = 12f;
     [SerializeField] private Transform verificationSol;         // Un objet vide (Empty) sous les pieds
     [SerializeField] private float rayonVerificationSol = 0.15f;
-    [SerializeField] private LayerMask coucheSol;
+    [SerializeField] private LayerMask layerSol;
     [Tooltip("Coupe l'ascension si on relâche la touche (saut 'à la Mario').")]
     [SerializeField] private bool sautVariable = true;
     [SerializeField] private float multiplicateurCoupSaut = 0.5f;
@@ -72,7 +72,7 @@ public class DeplacementPersonnageV2 : MonoBehaviour
     void FixedUpdate()
     {
         // Vérification de la présence au sol via un cercle de collision
-        estAuSol = Physics2D.OverlapCircle(verificationSol.position, rayonVerificationSol, coucheSol);
+        estAuSol = Physics2D.OverlapCircle(verificationSol.position, rayonVerificationSol, layerSol);
 
         // Application du déplacement horizontal par vélocité physique
         rb.linearVelocity = new Vector2(entreeMouvement * vitesseDeplacement, rb.linearVelocity.y);
